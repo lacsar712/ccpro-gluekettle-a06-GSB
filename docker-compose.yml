@@ -6,15 +6,15 @@ services:
       POSTGRES_USER: gluekettle
       POSTGRES_PASSWORD: gluekettle
     ports:
-      - "6300:5432"
+      - "6310:5432"
     volumes:
-      - gluekettle_4900_8900_6300_pg:/var/lib/postgresql/data
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U gluekettle -d gluekettle"]
-      interval: 5s
-      timeout: 5s
-      retries: 30
-      start_period: 40s
+      - gluekettle_4910_8910_6310_pg:/var/lib/postgresql/data
+    # healthcheck:
+    #   test: ["CMD-SHELL", "pg_isready -U gluekettle -d gluekettle"]
+    #   interval: 5s
+    #   timeout: 5s
+    #   retries: 30
+    #   start_period: 40s
 
   backend:
     build: ./backend
@@ -22,18 +22,17 @@ services:
       DATABASE_URL: postgresql://gluekettle:gluekettle@db:5432/gluekettle
       JWT_SECRET: gluekettle-dev-secret
     ports:
-      - "8900:8790"
+      - "8910:8790"
     depends_on:
-      db:
-        condition: service_healthy
+      - db
 
   frontend:
     build: ./frontend
     ports:
-      - "4900:80"
+      - "4910:80"
     restart: on-failure
     depends_on:
       - backend
 
 volumes:
-  gluekettle_4900_8900_6300_pg:
+  gluekettle_4910_8910_6310_pg:

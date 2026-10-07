@@ -1,11 +1,43 @@
 body { margin: 0; font-family: Georgia, serif; background: #f3ece3; color: #3a2a1d; }
 .wrap { max-width: 920px; margin: 0 auto; padding: 28px 16px 48px; }
+
+.topbar { display: flex; align-items: center; gap: 10px; padding: 10px 18px; background: #3a2a1d; color: #f3ece3; position: sticky; top: 0; z-index: 5; }
+.topbar .brand { font-weight: bold; letter-spacing: 2px; margin-right: 8px; }
+.topbar .navbtn { background: transparent; color: #e9dccb; border: 1px solid #6b5a48; border-radius: 6px; padding: 6px 14px; cursor: pointer; margin: 0; }
+.topbar .navbtn.active { background: #c45c26; border-color: #c45c26; color: #fff; }
+.topbar .spacer { flex: 1; }
+.topbar .who { color: #d8c6b1; font-size: 0.92em; }
+.topbar .logout { background: transparent; color: #e9dccb; border: 1px solid #6b5a48; border-radius: 6px; padding: 6px 12px; cursor: pointer; margin: 0; }
+
+.pagehead h1 { margin-bottom: 4px; }
+.tools { display: flex; align-items: center; gap: 18px; margin: 12px 0 16px; flex-wrap: wrap; }
+.tools .filter { margin: 0; display: flex; align-items: center; gap: 6px; }
+.tools select { padding: 6px 8px; }
+.quota { font-size: 1.05em; background: #efe2cf; border: 1px solid #d8c4a8; border-radius: 8px; padding: 6px 14px; }
+.quota strong { font-size: 1.25em; color: #c45c26; }
+.quota.zero strong { color: #9b1c1c; }
+
 .row { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 12px; }
 .kettle { min-width: 110px; min-height: 140px; border-radius: 50% 50% 12px 12px; color: #fff; border: 0; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .cold { background: #6d7c8b; }
 .boiling { background: #c45c26; }
 .drawn { background: #6f7d4e; }
+
+.drawer { background: #fffaf2; border: 1px solid #e0d2bd; border-radius: 10px; padding: 14px 18px; margin-top: 6px; }
+.warn { color: #9b1c1c; font-weight: bold; }
+.ok { color: #3f6b32; }
 .err { color: #9b1c1c; }
 .hint { color: #6b5a48; font-size: 0.92em; }
+
+.quotatable { width: 100%; border-collapse: collapse; background: #fffaf2; border-radius: 10px; overflow: hidden; }
+.quotatable th, .quotatable td { text-align: left; padding: 10px 14px; border-bottom: 1px solid #e7dccb; }
+.quotatable th { background: #e9dccb; font-size: 0.95em; }
+.quotatable td.num { width: 110px; }
+.quotatable td.time { width: 230px; color: #6b5a48; white-space: nowrap; }
+.badge { display: inline-block; min-width: 1.6em; text-align: center; font-weight: bold; background: #e3edd8; color: #3f6b32; border-radius: 999px; padding: 2px 12px; }
+.badge.zero { background: #f6dcd2; color: #9b1c1c; }
+.topup { width: 72px; }
+
 label { display: block; margin: 8px 0; }
-input, button { font: inherit; padding: 8px 10px; margin: 4px 6px 4px 0; }
+input, button, select { font: inherit; padding: 8px 10px; margin: 4px 6px 4px 0; }
+button { cursor: pointer; }
