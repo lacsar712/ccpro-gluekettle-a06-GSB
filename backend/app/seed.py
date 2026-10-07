@@ -1,8 +1,19 @@
 from sqlmodel import select
 
 from app.db import get_session
-from app.models import CookLog, Kettle, User, Workshop
+from app.models import BlowerQuota, CookLog, Kettle, User, Workshop
 from app.security import hash_password
+
+SEED_BLOWER_MINUTES = 1
+
+
+def ensure_blower_quotas(session) -> None:
+    """给还没有配额行的坊补建，剩余分钟写成 1；已有行不动。"""
+    shops = session.exec(select(Workshop)).all()
+    have = set(session.exec(select(BlowerQuota.workshop_id)).all())
+    for shop in shops:
+        if shop.id not in have:
+            session.add(BlowerQuota(workshop_id=shop.id, remaining_minutes=SEED_BLOWER_MINUTES))
 
 
 def seed_demo() -> None:
@@ -20,6 +31,7 @@ def seed_demo() -> None:
             worker.password_hash = hash_password("123456")
             worker.role = "worker"
         if session.exec(select(Workshop)).first():
+            ensure_blower_quotas(session)
             session.commit()
             return
         shop = Workshop(name="骨巷熬胶坊", alley="西市骨巷")
@@ -39,4 +51,5 @@ def seed_demo() -> None:
             session.flush()
             if peak is not None:
                 session.add(CookLog(kettle_id=kettle.id, peak_temp_c=peak, operator="worker"))
+        session.add(BlowerQuota(workshop_id=shop.id, remaining_minutes=SEED_BLOWER_MINUTES))
         session.commit()
